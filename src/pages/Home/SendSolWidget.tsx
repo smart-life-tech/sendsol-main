@@ -15,7 +15,7 @@ import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import CloseIcon from "@mui/icons-material/Close";
 import { WalletNotConnectedError } from "@solana/wallet-adapter-base";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
-import { Keypair, SystemProgram, Transaction } from "@solana/web3.js";
+import { Keypair, SystemProgram, Transaction,PublicKey } from "@solana/web3.js";
 import BigNumber from "bignumber.js";
 import SolLogo from "../../assets/coin.svg";
 import { InfoRow } from "../../components/InfoRow";
@@ -44,11 +44,11 @@ export const SendSolWidget: FC = () => {
   const wallet = useWallet()
   const getBalance = useCallback(async () => {
     if (publicKey) {
-      let bal = await connection.getBalance(AmgWvVsaJy7UfWJS5qXn5DozYcsBiP2EXBH8Xdpj5YXT);
-      // let wallet = new PublicKey("AmgWvVsaJy7UfWJS5qXn5DozYcsBiP2EXBH8Xdpj5YXT");
+      let bal = await connection.getBalance(publicKey);
+      //let wallet = new PublicKey("AmgWvVsaJy7UfWJS5qXn5DozYcsBiP2EXBH8Xdpj5YXT");//deh
       //let balance = await connection.getBalance(wallet);
-      // console.log(wallet);
-      // console.log(`${balance } SOL`);
+      //console.log(wallet);
+      //console.log(`${balance } SOL`);
       console.log("balance", bal);
       setBalance(BigNumber(bal));
 
@@ -64,8 +64,8 @@ export const SendSolWidget: FC = () => {
     if (balance) {
       setAmount(
         balance
-          .minus(BigNumber(minLamports))
-          .minus(BigNumber(fee || 0))
+          //.minus(BigNumber(minLamports))
+         // .minus(BigNumber(fee || 0))
           .dividedBy(LAMPORTS_PER_SOL)
           .toString()
       );
@@ -79,7 +79,7 @@ export const SendSolWidget: FC = () => {
   const onExplorerClick = () => {
     const win: Window = window;
     win
-      .open(`https://solscan.io/tx/${txn ?? ""}?cluster=devnet`, "_blank")
+      .open(`https://solscan.io/tx/${txn ?? ""}?cluster=mainnet-beta`, "_blank")
       ?.focus();
   };
 
@@ -335,7 +335,7 @@ export const SendSolWidget: FC = () => {
               Current Balance:{" "}
 
               {(balance !== null ? balance : BigNumber(10))
-                .multipliedBy(LAMPORTS_PER_SOL)
+                .dividedBy(LAMPORTS_PER_SOL)
                 ?.toString()}{" "}
 
               SOL
