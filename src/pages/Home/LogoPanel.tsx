@@ -22,7 +22,7 @@ export const LogoPanel: React.FC = () => {
     <Box px={2}  m={2} sx={styles.container}>
       <img width="329px" src={IconLogo} alt="Acme Logo" />
       <Typography color="text.primary" variant="h2">
-        3D root labs<br /> Wallet
+        3D root labs <br />sol Wallet
       </Typography>
       <Typography color="text.secondary" variant="h3">
         Send Solana to your friends now!

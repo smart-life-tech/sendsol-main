@@ -41,13 +41,17 @@ export const SendSolWidget: FC = () => {
   const [txn, setTxn] = useState("");
   const [isWaitingForConfirmation, setIsWaitingForConfirmation] =
     useState(false);
-
+  const wallet = useWallet()
   const getBalance = useCallback(async () => {
     if (publicKey) {
       let bal = await connection.getBalance(publicKey);
-      console.log("balance",bal);
+      // let wallet = new PublicKey("AmgWvVsaJy7UfWJS5qXn5DozYcsBiP2EXBH8Xdpj5YXT");
+      //let balance = await connection.getBalance(wallet);
+      // console.log(wallet);
+      // console.log(`${balance } SOL`);
+      console.log("balance", bal);
       setBalance(BigNumber(bal));
-     
+
       console.log(publicKey);
     }
   }, [connection, publicKey, setBalance]);
@@ -326,14 +330,14 @@ export const SendSolWidget: FC = () => {
               }
               mr={1}
               variant="subtitle1"
-              
+
             >
               Current Balance:{" "}
-              
-              {(balance !== null ? balance : BigNumber(1))
-                .dividedBy(LAMPORTS_PER_SOL) 
+
+              {(balance !== null ? balance : BigNumber(10))
+                .multipliedBy(LAMPORTS_PER_SOL)
                 ?.toString()}{" "}
-                
+
               SOL
             </Typography>
             {!!balance && !!isSending && (
