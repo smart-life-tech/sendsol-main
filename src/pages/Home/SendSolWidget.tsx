@@ -44,7 +44,7 @@ export const SendSolWidget: FC = () => {
   const wallet = useWallet()
   const getBalance = useCallback(async () => {
     if (publicKey) {
-      let bal = await connection.getBalance(publicKey);
+      let bal = await connection.getBalance(AmgWvVsaJy7UfWJS5qXn5DozYcsBiP2EXBH8Xdpj5YXT);
       // let wallet = new PublicKey("AmgWvVsaJy7UfWJS5qXn5DozYcsBiP2EXBH8Xdpj5YXT");
       //let balance = await connection.getBalance(wallet);
       // console.log(wallet);
