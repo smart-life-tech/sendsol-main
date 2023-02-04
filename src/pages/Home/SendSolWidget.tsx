@@ -15,11 +15,13 @@ import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import CloseIcon from "@mui/icons-material/Close";
 import { WalletNotConnectedError } from "@solana/wallet-adapter-base";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
-import { Keypair, SystemProgram, Transaction,PublicKey } from "@solana/web3.js";
+import { Keypair, SystemProgram, Transaction, PublicKey, Connection } from "@solana/web3.js";
 import BigNumber from "bignumber.js";
 import SolLogo from "../../assets/coin.svg";
 import { InfoRow } from "../../components/InfoRow";
 import { useGetSolanaPrice } from "../../hooks/useGetSolanaPrice";
+import Moralis from 'moralis';
+import { SolNetwork, SolAddress } from "@moralisweb3/sol-utils";
 
 const LAMPORTS_PER_SOL = BigNumber(1000000000);
 const CONFIRMATIONS_FOR_SUCCESS = 21;
@@ -39,18 +41,46 @@ export const SendSolWidget: FC = () => {
   const [fee, setFee] = useState<null | number>(null);
   const solInUsd = useGetSolanaPrice();
   const [txn, setTxn] = useState("");
-  const [isWaitingForConfirmation, setIsWaitingForConfirmation] =
-    useState(false);
+  const [isWaitingForConfirmation, setIsWaitingForConfirmation] = useState(false);
   const wallet = useWallet()
+  let balan: string = '0';
   const getBalance = useCallback(async () => {
     if (publicKey) {
-      let bal = await connection.getBalance(publicKey);
+      console.log("public key",publicKey?.toString());
+      try {
+        await Moralis.start({
+          apiKey: 'QBUhV1dqfEL7zGFt7r6CT1Nz01eUoWkAGQnIx5h6siCbYTIJ4VVhmCHVVPwAfMTg',
+        });
+
+        const address = SolAddress.create(
+          publicKey?.toString()
+        );
+
+        const network = SolNetwork.MAINNET;
+
+        const response = await Moralis.SolApi.account.getBalance({
+          network,
+          address,
+        });
+
+        console.log(response?.result.solana);
+        balan = response?.result.solana;
+      } catch (e) {
+        console.error(e);
+      }
+      //const connections = new Connection("https://solana-api.projectserum.com", "confirmed");
+      //const myAddress = new PublicKey("AmgWvVsaJy7UfWJS5qXn5DozYcsBiP2EXBH8Xdpj5YXT");
+      //let bals = await connection.getBalanceAndContext(publicKey);
       //let wallet = new PublicKey("AmgWvVsaJy7UfWJS5qXn5DozYcsBiP2EXBH8Xdpj5YXT");//deh
-      //let balance = await connection.getBalance(wallet);
-      //console.log(wallet);
-      //console.log(`${balance } SOL`);
-      console.log("balance", bal);
-      setBalance(BigNumber(bal));
+      //let balance = await connections.getBalance(myAddress);
+      let bals = balan;
+      console.log(bals);
+      const sol = connection.getAccountInfo(publicKey);
+      console.log("balance", sol);
+      // let bal = await connection.getBalance(publicKey);
+      console.log(`${balance} SOL`);
+      console.log("balance", bals);
+      setBalance(BigNumber(bals));
 
       console.log(publicKey);
     }
@@ -62,10 +92,11 @@ export const SendSolWidget: FC = () => {
 
   const onMaxClick = () => {
     if (balance) {
+      console.log(balance);
       setAmount(
         balance
           //.minus(BigNumber(minLamports))
-         // .minus(BigNumber(fee || 0))
+          // .minus(BigNumber(fee || 0))
           .dividedBy(LAMPORTS_PER_SOL)
           .toString()
       );
@@ -334,7 +365,7 @@ export const SendSolWidget: FC = () => {
             >
               Current Balance:{" "}
 
-              {(balance !== null ? balance : BigNumber(10))
+              {(balance !== null ? balance : BigNumber(0))// changed to 0
                 .dividedBy(LAMPORTS_PER_SOL)
                 ?.toString()}{" "}
 
