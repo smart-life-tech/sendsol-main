@@ -20,7 +20,8 @@
     "scripts": {
         "clean": "shx mkdir -p .parcel-cache dist lib && shx rm -rf .parcel-cache dist lib",
         "start": "parcel src/index.html",
-        "build": "parcel build src/index.html"
+        "build": "parcel build src/index.html",
+        "heroku-postbuild" : "parcel build src/index.html"
     },
     "dependencies": {
         "@emotion/react": "^11.10.0",
@@ -39,7 +40,8 @@
         "moralis": "^2.12.0",
         "notistack": "^2.0.8",
         "react": "^18.0.0",
-        "react-dom": "^18.0.0"
+        "react-dom": "^18.0.0",
+        "parcel": "^2.7.0"
     },
     "devDependencies": {
         "@types/react": "^18.0.0",
