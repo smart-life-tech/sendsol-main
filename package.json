@@ -19,7 +19,7 @@
     ],
     "scripts": {
         "clean": "shx mkdir -p .parcel-cache dist lib && shx rm -rf .parcel-cache dist lib",
-        "heroku-postbuild" : "parcel build src/index.html",
+        "heroku-postbuild": "parcel build src/index.html",
         "start": "serve -s build",
         "dev": "react-scripts start",
         "build": "react-scripts build"
@@ -40,9 +40,10 @@
         "bignumber.js": "^9.1.1",
         "moralis": "^2.12.0",
         "notistack": "^2.0.8",
+        "parcel": "^2.7.0",
         "react": "^18.0.0",
         "react-dom": "^18.0.0",
-        "parcel": "^2.7.0"
+        "serve": "^14.2.0"
     },
     "devDependencies": {
         "@types/react": "^18.0.0",
