@@ -19,7 +19,7 @@
     ],
     "scripts": {
         "clean": "shx mkdir -p .parcel-cache dist lib && shx rm -rf .parcel-cache dist lib",
-        "start": "serve -s build src/index.html",
+        "start": "serve -s build",
         "build": "parcel build src/index.html",
         "dev": "react-scripts start",
         "heroku-postbuild" : "parcel build src/index.html"
