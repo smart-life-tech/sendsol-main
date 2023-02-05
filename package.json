@@ -19,10 +19,10 @@
     ],
     "scripts": {
         "clean": "shx mkdir -p .parcel-cache dist lib && shx rm -rf .parcel-cache dist lib",
+        "heroku-postbuild" : "parcel build src/index.html",
         "start": "serve -s build",
-        "build": "parcel build src/index.html",
         "dev": "react-scripts start",
-        "heroku-postbuild" : "parcel build src/index.html"
+        "build": "react-scripts build"
     },
     "dependencies": {
         "@emotion/react": "^11.10.0",
