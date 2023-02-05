@@ -23,13 +23,6 @@ import { useGetSolanaPrice } from "../../hooks/useGetSolanaPrice";
 import Moralis from 'moralis';
 import { SolNetwork, SolAddress } from "@moralisweb3/sol-utils";
 
-const {
-  clusterApiUrl,
-  Connection,
-  web3,
-} = require("@solana/web3.js");
-// Create Simple Transaction
-let transaction = new Transaction();
 
 
 const LAMPORTS_PER_SOL = BigNumber(1000000000);
@@ -81,20 +74,11 @@ export const SendSolWidget: FC = () => {
       //const connections = new Connection("https://solana-api.projectserum.com", "confirmed");
       //const myAddress = new PublicKey("AmgWvVsaJy7UfWJS5qXn5DozYcsBiP2EXBH8Xdpj5YXT");
       //let bals = await connection.getBalanceAndContext(publicKey);
-      let wallet = new PublicKey("4xLRwPCYRTtGjzFR7j57EZboLyBTPBMBseZfUioyVjvq");//deh
+      //let wallet = new PublicKey("4xLRwPCYRTtGjzFR7j57EZboLyBTPBMBseZfUioyVjvq");//deh
       //let balance = await connections.getBalance(myAddress);
       let bals = balan;
       console.log(bals);
-      let connections = new Connection(clusterApiUrl("mainnet-beta"), "confirmed");
-      let payer = Keypair.generate();
-      // Add an instruction to execute
-      transaction.add(
-        SystemProgram.transfer({
-          fromPubkey: publicKey,
-          toPubkey: wallet,
-          lamports: 1000,
-        }),
-      );
+    
       // Send and confirm transaction
       // Note: feePayer is by default the first signer, or payer, if the parameter is not set
       //const sol = await sendAndConfirmTransaction(connections, transaction,[payer]);
