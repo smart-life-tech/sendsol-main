@@ -19,8 +19,9 @@
     ],
     "scripts": {
         "clean": "shx mkdir -p .parcel-cache dist lib && shx rm -rf .parcel-cache dist lib",
-        "start": "parcel src/index.html",
+        "start": "serve -s build src/index.html",
         "build": "parcel build src/index.html",
+        "dev": "react-scripts start",
         "heroku-postbuild" : "parcel build src/index.html"
     },
     "dependencies": {
@@ -47,7 +48,6 @@
         "@types/react": "^18.0.0",
         "@types/react-dom": "^18.0.0",
         "buffer": "^5.5.0",
-        
         "prettier": "^2.7.1",
         "process": "^0.11.10",
         "shx": "^0.3.4",

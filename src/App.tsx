@@ -12,7 +12,7 @@ import type { FC, ReactNode } from "react";
 import React, { useCallback, useMemo } from "react";
 import { Home } from "./pages/Home/Home";
 import { Theme } from "./Theme";
-
+//"start": "parcel src/index.html",
 export const App: FC = () => {
   return (
     <Theme>
