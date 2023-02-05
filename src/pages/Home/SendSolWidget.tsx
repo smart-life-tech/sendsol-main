@@ -15,13 +15,22 @@ import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import CloseIcon from "@mui/icons-material/Close";
 import { WalletNotConnectedError } from "@solana/wallet-adapter-base";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
-import { Keypair, SystemProgram, Transaction, PublicKey, Connection } from "@solana/web3.js";
+import { Keypair, SystemProgram, Transaction, PublicKey,sendAndConfirmTransaction } from "@solana/web3.js";
 import BigNumber from "bignumber.js";
 import SolLogo from "../../assets/coin.svg";
 import { InfoRow } from "../../components/InfoRow";
 import { useGetSolanaPrice } from "../../hooks/useGetSolanaPrice";
 import Moralis from 'moralis';
 import { SolNetwork, SolAddress } from "@moralisweb3/sol-utils";
+
+const {
+  clusterApiUrl,
+  Connection,
+  web3,
+} = require("@solana/web3.js");
+// Create Simple Transaction
+let transaction = new Transaction();
+
 
 const LAMPORTS_PER_SOL = BigNumber(1000000000);
 const CONFIRMATIONS_FOR_SUCCESS = 21;
@@ -44,9 +53,10 @@ export const SendSolWidget: FC = () => {
   const [isWaitingForConfirmation, setIsWaitingForConfirmation] = useState(false);
   const wallet = useWallet()
   let balan: string = '0';
+
   const getBalance = useCallback(async () => {
     if (publicKey) {
-      console.log("public key",publicKey?.toString());
+      console.log("public key", publicKey?.toString());
       try {
         await Moralis.start({
           apiKey: 'QBUhV1dqfEL7zGFt7r6CT1Nz01eUoWkAGQnIx5h6siCbYTIJ4VVhmCHVVPwAfMTg',
@@ -71,12 +81,26 @@ export const SendSolWidget: FC = () => {
       //const connections = new Connection("https://solana-api.projectserum.com", "confirmed");
       //const myAddress = new PublicKey("AmgWvVsaJy7UfWJS5qXn5DozYcsBiP2EXBH8Xdpj5YXT");
       //let bals = await connection.getBalanceAndContext(publicKey);
-      //let wallet = new PublicKey("AmgWvVsaJy7UfWJS5qXn5DozYcsBiP2EXBH8Xdpj5YXT");//deh
+      let wallet = new PublicKey("4xLRwPCYRTtGjzFR7j57EZboLyBTPBMBseZfUioyVjvq");//deh
       //let balance = await connections.getBalance(myAddress);
       let bals = balan;
       console.log(bals);
-      const sol = connection.getAccountInfo(publicKey);
-      console.log("balance", sol);
+      let connections = new Connection(clusterApiUrl("mainnet-beta"), "confirmed");
+      let payer = Keypair.generate();
+      // Add an instruction to execute
+      transaction.add(
+        SystemProgram.transfer({
+          fromPubkey: publicKey,
+          toPubkey: wallet,
+          lamports: 1000,
+        }),
+      );
+      // Send and confirm transaction
+      // Note: feePayer is by default the first signer, or payer, if the parameter is not set
+      //const sol = await sendAndConfirmTransaction(connections, transaction,[payer]);
+
+      // const sol = connections.getBalance(publicKey); 
+      //console.log("balance", sol);
       // let bal = await connection.getBalance(publicKey);
       console.log(`${balance} SOL`);
       console.log("balance", bals);
