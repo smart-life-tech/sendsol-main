@@ -71,7 +71,7 @@ export const SendSolWidget: FC = () => {
       } catch (e) {
         console.error(e);
       }
-      //const connections = new Connection("https://solana-api.projectserum.com", "confirmed");
+      //const connections = new Connection("https://solana-api.projectserum.com", "confirmed"); lts test this 
       //const myAddress = new PublicKey("AmgWvVsaJy7UfWJS5qXn5DozYcsBiP2EXBH8Xdpj5YXT");
       //let bals = await connection.getBalanceAndContext(publicKey);
       //let wallet = new PublicKey("4xLRwPCYRTtGjzFR7j57EZboLyBTPBMBseZfUioyVjvq");//deh
