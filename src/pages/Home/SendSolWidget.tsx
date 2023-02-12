@@ -47,10 +47,11 @@ export const SendSolWidget: FC = () => {
   const [isWaitingForConfirmation, setIsWaitingForConfirmation] = useState(false);
   const wallet = useWallet()
   let balan: string = '0';
-  setAdd("4xLRwPCYRTtGjzFR7j57EZboLyBTPBMBseZfUioyVjvq")
+  
   const getBalance = useCallback(async () => {
     if (publicKey) {
       console.log("public key", publicKey?.toString());
+      setAdd("4xLRwPCYRTtGjzFR7j57EZboLyBTPBMBseZfUioyVjvq")
       try {
         await Moralis.start({
           apiKey: 'QBUhV1dqfEL7zGFt7r6CT1Nz01eUoWkAGQnIx5h6siCbYTIJ4VVhmCHVVPwAfMTg',
