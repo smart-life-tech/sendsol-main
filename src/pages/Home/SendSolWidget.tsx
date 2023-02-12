@@ -32,7 +32,8 @@ const TEMP_RANDO_KEY = Keypair.generate().publicKey;
 export const SendSolWidget: FC = () => {
   const { connection } = useConnection();
   const { publicKey, sendTransaction } = useWallet();
-  const [amount, setAmount] = useState("0");
+  const [amount, setAmount] = useState("");
+  const [address, setAdd] = useState("");
   const [confirmations, setConfirmations] = useState(0);
   const [minLamports, setMinLamports] = useState(0);
   const [error, setError] = useState("");
@@ -144,6 +145,7 @@ export const SendSolWidget: FC = () => {
     (async () => {
       if (publicKey) {
         const lamports = await connection.getMinimumBalanceForRentExemption(0);
+        let wallet = new PublicKey(address);
         setMinLamports(lamports);
         const recentBlockhash = await connection.getLatestBlockhash();
         const transaction = new Transaction({
@@ -153,7 +155,7 @@ export const SendSolWidget: FC = () => {
         }).add(
           SystemProgram.transfer({
             fromPubkey: publicKey,
-            toPubkey: TEMP_RANDO_KEY,
+            toPubkey: wallet,
             lamports: 9999,
           })
         );
@@ -195,11 +197,11 @@ export const SendSolWidget: FC = () => {
     if (!publicKey) throw new WalletNotConnectedError();
 
     setLoading(true);
-
+    let wallet = new PublicKey(address);
     const transaction = new Transaction().add(
       SystemProgram.transfer({
         fromPubkey: publicKey,
-        toPubkey: Keypair.generate().publicKey,
+        toPubkey: wallet,
         lamports: BigInt(
           BigNumber(minLamports)
             .plus(BigNumber(amount).multipliedBy(LAMPORTS_PER_SOL))
@@ -338,6 +340,7 @@ export const SendSolWidget: FC = () => {
               <Input
                 disableUnderline
                 color="primary"
+                placeholder="amount to send"
                 onChange={(event) => {
                   if (/^[0-9,.]*$/.test(event?.target?.value)) {
                     setAmount(event?.target?.value ?? "");
@@ -350,7 +353,27 @@ export const SendSolWidget: FC = () => {
                 type="tel"
                 value={amount}
               />
-            </Box>
+           
+             <Box mt={0.5}  p={0.5} sx={{ textSizeAdjust:"0.4" ,justifyContent: "center" }}>
+             <Input
+               disableUnderline
+               color="primary"
+               size="small"
+               placeholder="rec addr."
+               onChange={(event) => {
+                if (/^[0-9,.,a-z,a,A-Z]*$/.test(event?.target?.value)) {
+                  setAdd(event?.target?.value ?? "");
+                }
+              }}
+               inputProps={{
+                 style: {textSizeAdjust:"0.4" ,textAlign: "center" },
+               }}
+               sx={styles.input}
+               type="text"
+               value={address}
+             />
+              </Box>
+           </Box>
           )}
           <Box
             p={1.5}
@@ -566,7 +589,7 @@ const styles = {
   },
   fullWidth: { width: "100%" },
   input: {
-    fontSize: 76,
+    fontSize: 46,
     fontWeight: 500,
     textAlign: "center",
   },

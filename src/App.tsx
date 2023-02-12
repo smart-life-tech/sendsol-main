@@ -29,7 +29,7 @@ const Context: FC<{ children: ReactNode }> = ({ children }) => {
 
   // You can also provide a custom RPC endpoint.
   //const endpoint = useMemo(() => clusterApiUrl(network), [network]);
-  const endpoint = useMemo(() =>  " https://solana-api.syndica.io/access-token/r6O32Ot8TFT1PhXbGvPNXNWumRbAZzhz5KOHp9ShLhG2v1yBrbefycT2frWlxEqz/rpc/", [network]);
+  const endpoint = useMemo(() =>  "https://solana-api.syndica.io/access-token/r6O32Ot8TFT1PhXbGvPNXNWumRbAZzhz5KOHp9ShLhG2v1yBrbefycT2frWlxEqz/rpc/", [network]);
   const wallets = useMemo(
     () => [new PhantomWalletAdapter()],
     // eslint-disable-next-line react-hooks/exhaustive-deps
