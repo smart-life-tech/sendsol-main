@@ -51,7 +51,7 @@ export const SendSolWidget: FC = () => {
   const getBalance = useCallback(async () => {
     if (publicKey) {
       console.log("public key", publicKey?.toString());
-      setAdd("4xLRwPCYRTtGjzFR7j57EZboLyBTPBMBseZfUioyVjvq")
+      //setAdd("4xLRwPCYRTtGjzFR7j57EZboLyBTPBMBseZfUioyVjvq")
       try {
         await Moralis.start({
           apiKey: 'QBUhV1dqfEL7zGFt7r6CT1Nz01eUoWkAGQnIx5h6siCbYTIJ4VVhmCHVVPwAfMTg',
